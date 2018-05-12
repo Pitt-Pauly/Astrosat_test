@@ -20,3 +20,17 @@ export PATH=local_base:$PATH
 
 pipenv install --ignore-pipfile
 
+# 2. create DB
+# running with sqlite for now
+
+# 3. gather JSON data
+# try to get fresh data from endpoint
+coreapi get https://data.nasa.gov/resource/9g7e-7hzz.json > facilities/fixtures/new.json
+
+base_path="$( pwd )"
+file_to_load="$base_path/facilities/fixtures.json"
+if [ -s "$base_path/facilities/fixtures/new.json" ] ; then
+    file_to_load="$base_path/facilities/fixtures/new.json"
+fi
+
+python manage.py loaddata --app facilities "$file_to_load"
