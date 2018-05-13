@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from rest_framework.permissions import AllowAny
+from rest_framework.schemas import get_schema_view
+
+from facilities import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    url(r'^schema/$', get_schema_view(title="Astrosat NASA Facilities API", permission_classes=[ AllowAny ])),
+
+    url(r'^facilities/$', views.FacilitiesList.as_view()),
+    url(r'^facilities/batch/$', views.FacilitiesBatchCreate.as_view()),
+    url(r'^facilities/(?P<pk>[0-9]+)/$', views.FacilitiesDetail.as_view()),
 ]
