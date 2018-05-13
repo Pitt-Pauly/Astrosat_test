@@ -1,41 +1,15 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-class PointFieldManager(models.Manager):
-
-    def create_from_coordinates(self, coords):
-        data = {
-            'lon': coords[0],
-            'lat': coords[1],
-        }
-        point = self.create(data)
-        return point
-
-
-class PointField(models.Model):
-    lat = models.FloatField(
-        unique=False,
-        blank=False,
-        null=False
-    )
-    lon = models.FloatField(
-        unique=False,
-        blank=False,
-        null=False
-    )
-
-    objects = PointFieldManager()
-
-    class Meta():
-        verbose_name = _('point')
-        verbose_name_plural = _('points')
-
 class LocationManager(models.Manager):
 
-    def create_with_Point_using_coordinates(self, validated_data):
-        coords = validated_data.get('coordinates', default=None)
-        point = PointField.objects.create(**coords)
-        location = Location.objects.create(coordinates=point, **validated_data)
+    def create_from_coordinates(self, coordinates: list, type="Point"):
+        data = {
+            'type': type,
+            'lon': coordinates[0],
+            'lat': coordinates[1],
+        }
+        location = self.create(**data)
         return location
 
 class Location(models.Model):
@@ -46,9 +20,17 @@ class Location(models.Model):
         ),
         default="Point"
     )
-    coordinates = models.ForeignKey(
-        to=PointField,
-        on_delete=models.CASCADE
+
+    lat = models.FloatField(
+        unique=False,
+        blank=False,
+        null=False
+    )
+
+    lon = models.FloatField(
+        unique=False,
+        blank=False,
+        null=False
     )
 
     objects = LocationManager()

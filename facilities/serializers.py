@@ -2,27 +2,35 @@ from collections import OrderedDict
 
 from django.core.exceptions import ValidationError
 from rest_framework import serializers
-from .models import Facility, Location, PointField
+from .models import Facility, Location
 
-class PointFieldSerializer(serializers.Field):
-
-    def to_representation(self, instance: PointField):
-        return [ float(instance.lon), float(instance.lat) ]
-
-    def to_internal_value(self, data):
-        if isinstance(data, list):
-            lon, lat = [ float(i) for i in data ]
-            ret = OrderedDict( { 'lon': lon, 'lat': lat } )
-        else:
-            ret = super(PointFieldSerializer, self).to_internal_value(data)
-        return ret
-
-    class Meta():
-        model = PointField
-        fields = ("lon", "lat")
+# class PointFieldSerializer(serializers.Field):
+#
+#     def to_representation(self, instance: PointField):
+#         return [ float(instance.lon), float(instance.lat) ]
+#
+#     def to_internal_value(self, data):
+#         if isinstance(data, list):
+#             lon, lat = [ float(i) for i in data ]
+#             ret = OrderedDict( { 'lon': lon, 'lat': lat } )
+#         else:
+#             ret = super(PointFieldSerializer, self).to_internal_value(data)
+#         return ret
+#
+#     class Meta():
+#         model = PointField
+#         fields = ("lon", "lat")
 
 class LocationSerializer(serializers.ModelSerializer):
-    coordinates = PointFieldSerializer()
+    coordinates = serializers.ListField(
+        child=serializers.FloatField()
+    )
+
+    def get_coordinates(self):
+        return [ self.lon, self.lat ]
+
+    def to_representation(self, instance: Location):
+        return [ float(instance.lon), float(instance.lat) ]
 
     class Meta():
         model = Location
@@ -33,25 +41,24 @@ class FacilitySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         location_data = validated_data.pop('location')
-        coords = location_data.pop('coordinates')
-        point = PointField.objects.create(**coords)
-        location = Location.objects.create(coordinates=point, **location_data)
+        location = Location.objects.create_from_coordinates(**location_data)
         facility = Facility.objects.create(location=location,**validated_data)
         return facility
 
     def update(self, instance, validated_data):
-        # I am assuming that if the location data is not set, we don't want to change anything
-        location_data = validated_data.pop('location', default=None)
+        """
+        If the location data is not set, we don't want to change anything.
+        If new location data is provided, the location record is updated, this is ok since for each facility
+        there is just one location
+        """
+        location_data = validated_data.pop('location', None)
         if location_data is not None:
-            coords = location_data.pop('coordinates', default=None)
-            if coords is not None:
-                point = instance.location.coordinates
-                point.lon = coords[0]
-                point.lat = coords[1]
-                point.save()
             location = instance.location
             location.type = location_data.get('type', location.type )
-            location.coordinates = location_data.get('coordinates', location.coordinates)
+            coords = location_data.get('coordinates')
+            if coords is not None:
+                location.lon = coords[0]
+                location.lat = coords[1]
             location.save()
 
         instance.center = validated_data.get('center', instance.center)
