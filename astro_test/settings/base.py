@@ -132,4 +132,4 @@ REST_FRAMEWORK = {
 # Facilities app settings
 # allows the management command createDummySuperuser to create a new admin account for testing.
 CREATE_DUMMY_ADMIN = True
-INIT_DB_DEFAULT_JSON = os.path.abspath(BASE_DIR + '/facilities/fixtures/9g7e-7hzz.json')
+INIT_DB_DEFAULT_JSON = os.path.abspath(BASE_DIR + '/facilities/data/9g7e-7hzz.json')
