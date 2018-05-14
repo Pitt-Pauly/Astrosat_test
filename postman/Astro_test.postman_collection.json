@@ -181,6 +181,27 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Delete facility",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/facilities/2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								"2",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -341,6 +362,27 @@
 					"name": "Detail facilities",
 					"request": {
 						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/facilities/2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								"2",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete facility",
+					"request": {
+						"method": "DELETE",
 						"header": [],
 						"body": {},
 						"url": {
