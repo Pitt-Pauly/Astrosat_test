@@ -15,8 +15,8 @@ class InitdbTest(TestCase):
         self.assertIn('Loading JSON data from file %s into database' % filepath, out.getvalue())
         self.assertIn('Successfully initialized Database with JSON', out.getvalue())
 
-        Facility.objects.get(center__icontains="Stennis Space Center", facility__icontains="Test Stand A-2 #4122")
-        Facility.objects.get(center__icontains="Goddard Space Flight Center", facility__icontains="500 WSC: Antenna, 10m S-band")
+        Facility.objects.get(center="Stennis Space Center", facility="Test Stand A-2 #4122")
+        Facility.objects.get(center="Goddard Space Flight Center", facility="500 WSC: Antenna, 10m S-band")
 
     def test_command_output_test_json(self):
         out = StringIO()
@@ -25,8 +25,8 @@ class InitdbTest(TestCase):
         self.assertIn('Loading JSON data from file %s into database' % filepath, out.getvalue())
         self.assertIn('Successfully initialized Database with JSON', out.getvalue())
 
-        Facility.objects.get(center__icontains="AstroSat HQ", facility__icontains="Test Stand A-1 #1337")
-        Facility.objects.get(center__icontains="Astro Space Center", facility__icontains="Test Stand A-2 #1338")
+        Facility.objects.get(center="AstroSat HQ", facility="Test Stand A-1 #1337")
+        Facility.objects.get(center="Astro Space Center", facility="Test Stand A-2 #1338")
 
 class InitdbAddTest(TestCase):
     def test_adding_more_facilitites(self):
@@ -43,8 +43,8 @@ class InitdbAddTest(TestCase):
         self.assertIn('Loading JSON data from file %s into database' % filepath, out.getvalue())
         self.assertIn('Successfully initialized Database with JSON', out.getvalue())
 
-        Facility.objects.get(center__icontains="Stennis Space Center", facility__icontains="Test Stand A-2 #4122")
-        Facility.objects.get(center__icontains="Goddard Space Flight Center",
-                             facility__icontains="500 WSC: Antenna, 10m S-band")
-        Facility.objects.get(center__icontains="AstroSat HQ", facility__icontains="Test Stand A-1 #1337")
-        Facility.objects.get(center__icontains="Astro Space Center", facility__icontains="Test Stand A-2 #1338")
+        Facility.objects.get(center="Stennis Space Center", facility="Test Stand A-2 #4122")
+        Facility.objects.get(center="Goddard Space Flight Center",
+                             facility="500 WSC: Antenna, 10m S-band")
+        Facility.objects.get(center="AstroSat HQ", facility="Test Stand A-1 #1337")
+        Facility.objects.get(center="Astro Space Center", facility="Test Stand A-2 #1338")
