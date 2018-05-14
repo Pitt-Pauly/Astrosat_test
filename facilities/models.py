@@ -66,12 +66,12 @@ class Facility(models.Model):
         default="Inactive"
     )
 
-    facility_url = models.URLField( blank=True, null=False )
-    url_link = models.URLField( blank=True, null=False )
+    facility_url = models.URLField( blank=True, null=True )
+    url_link = models.URLField( blank=True, null=True )
 
-    occupied = models.DateTimeField( blank=True, null=False )
-    record_date = models.DateTimeField(blank=False, null=False)
-    last_update = models.DateTimeField(blank=True, null=False)
+    occupied = models.DateTimeField( blank=True, null=True )
+    record_date = models.DateTimeField( blank=False, null=True )
+    last_update = models.DateTimeField( blank=True, null=True )
 
     contact = models.CharField(
         max_length=150,

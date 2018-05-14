@@ -30,7 +30,11 @@ class LocationSerializer(serializers.ModelSerializer):
         return [ self.lon, self.lat ]
 
     def to_representation(self, instance: Location):
-        return [ float(instance.lon), float(instance.lat) ]
+        rep = {
+            'type': instance.type,
+            'coordinates': [ float(instance.lon), float(instance.lat) ]
+        }
+        return rep
 
     class Meta():
         model = Location
