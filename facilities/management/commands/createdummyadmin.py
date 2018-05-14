@@ -9,12 +9,35 @@ from django.core.exceptions import ObjectDoesNotExist
 Usere = get_user_model()
 
 class Command(BaseCommand):
-    help = "Creates a dummy super user account based on provided .env variables, see code for details."
+    help = "Creates a dummy super user account based on provided arguments, else it creates a default admin account."
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            dest='username',
+            action='store',
+            nargs='?',
+            default='admin',
+            help='username of dummy admin, if none provided will attempt to read env variable DUMMY_USERNAME'
+        )
+        parser.add_argument(
+            dest='email',
+            action='store',
+            nargs='?',
+            default='admin@mysite.com',
+            help='email of dummy admin, if none provided will attempt to read env variable DUMMY_EMAIL'
+        )
+        parser.add_argument(
+            dest='password',
+            action='store',
+            nargs='?',
+            default='supersafe111',
+            help='password of dummy admin, if none provided will attempt to read env variable DUMMY_PASSWORD'
+        )
 
     def handle(self, *args, **options):
-        username = os.environ['DUMMY_USERNAME']
-        email = os.environ['DUMMY_EMAIL']
-        password = os.environ['DUMMY_PASSWORD']
+        username = options['username']
+        email = options['email']
+        password = options['password']
         self.stdout.write('Creating account for %s (%s)' % (username, email))
         try:
             admin = User.objects.get(username=username)

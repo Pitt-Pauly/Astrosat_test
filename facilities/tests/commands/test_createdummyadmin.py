@@ -12,11 +12,18 @@ User = get_user_model()
 
 class CreateDummyAdminTest(TestCase):
 
+    def setUp(self):
+        self.dummy = {
+            'username': 'admin',
+            'email': 'admin@mysite.com',
+            'password': 'supersafe22'
+        }
+
     def test_command_default(self):
         try:
             user = User.objects.get(
-                username=os.environ['DUMMY_USERNAME'],
-                email=os.environ['DUMMY_EMAIL']
+                username=self.dummy['username'],
+                email=self.dummy['email']
             )
         except User.DoesNotExist:
             user = None
@@ -24,13 +31,13 @@ class CreateDummyAdminTest(TestCase):
         self.assertIsNone(user)
 
         out = StringIO()
-        call_command('createdummyadmin', stdout=out)
+        call_command('createdummyadmin', stdout=out, **self.dummy)
         self.assertIn('Default Admin account was successfully created!', out.getvalue())
 
         try:
             user = User.objects.get(
-                username=os.environ['DUMMY_USERNAME'],
-                email=os.environ['DUMMY_EMAIL']
+                username=self.dummy['username'],
+                email=self.dummy['email']
             )
         except User.DoesNotExist:
             user = None
@@ -40,13 +47,13 @@ class CreateDummyAdminTest(TestCase):
 
     def test_command_rerun(self):
         out = StringIO()
-        call_command('createdummyadmin', stdout=out)
+        call_command('createdummyadmin', stdout=out, **self.dummy)
         self.assertIn('Default Admin account was successfully created!', out.getvalue())
 
         try:
             user = User.objects.get(
-                username=os.environ['DUMMY_USERNAME'],
-                email=os.environ['DUMMY_EMAIL']
+                username=self.dummy['username'],
+                email=self.dummy['email']
             )
         except User.DoesNotExist:
             user = None
@@ -54,5 +61,5 @@ class CreateDummyAdminTest(TestCase):
         self.assertIsNotNone(user)
 
         out = StringIO()
-        call_command('createdummyadmin', stdout=out)
+        call_command('createdummyadmin', stdout=out, **self.dummy)
         self.assertIn('Dummy Admin account exists already!', out.getvalue())
