@@ -1,0 +1,401 @@
+{
+	"info": {
+		"name": "Astro_test",
+		"_postman_id": "27acb080-e495-2076-2d86-3ba3e5634362",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "As Anonymus User",
+			"description": "Run the requests as a not authenticated user",
+			"item": [
+				{
+					"name": "List facilities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "64dbe7d1-0a74-4e01-8b08-913197acdda7",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Has no 'Inactive' resources listed\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    jsonData.forEach(function(resource){",
+									"        pm.expect(resource.status).to.not.eql(\"Inactive\");",
+									"    });",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/facilities/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Detail facilities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/facilities/2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								"2",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Detail inactive facility",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/facilities/2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								"2",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe0c0af1-fcd0-4114-b248-1f1fc37f0c7f",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"center\": \"Astro 9000\",\n    \"center_search_status\": \"Public\",\n    \"facility\": \"AERODYNAMICS AND METAPHYICS TEST LAB A1\",\n    \"facility_url\": null,\n    \"occupied\": \"1961-01-01T00:00:00Z\",\n    \"status\": \"Active\",\n    \"url_link\": \"http://thermo-physics.arc.nasa.gov\",\n    \"record_date\": \"1996-03-01T00:00:00Z\",\n    \"last_update\": \"2014-06-13T00:00:00Z\",\n    \"contact\": \"Rocci Caringello\",\n    \"phone\": \"650 603-9506\",\n    \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n            -100.052585,\n            50.41412\n        ]\n    },\n    \"city\": \"Moffett Field\",\n    \"state\": \"CA\",\n    \"country\": \"US\",\n    \"zipcode\": \"94035\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/facilities/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "PUT facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0bcd0bcf-cc28-4e1a-bb0a-5eacc364afcd",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"center\": \"Ames Research Center-modified\",\n    \"center_search_status\": \"Public\",\n    \"facility\": \"N229 - EXPER. AEROTHERMODYNAMIC FAC.: ELECTRIC ARC SHOCK TUBE FACILITY (PAPAC)\",\n    \"facility_url\": null,\n    \"occupied\": \"1961-01-01T00:00:00Z\",\n    \"status\": \"Inactive\",\n    \"url_link\": \"http://thermo-physics.arc.nasa.gov\",\n    \"record_date\": \"1996-03-01T00:00:00Z\",\n    \"last_update\": \"2014-06-13T00:00:00Z\",\n    \"contact\": \"Rocci Caringello\",\n    \"phone\": \"650 603-9506\",\n    \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n            -100.052585,\n            50.41412\n        ]\n    },\n    \"city\": \"Moffett Field\",\n    \"state\": \"CA\",\n    \"country\": \"US\",\n    \"zipcode\": \"94035\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/facilities/2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								"2",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "As Admin",
+			"description": "Send requests as Admin user (needs to be set up server side beforehand)",
+			"item": [
+				{
+					"name": "PUT facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0919e8a-caf5-4b94-8ee7-de0408c1d77c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"center\": \"Ames Research Center-modified\",\n    \"center_search_status\": \"Public\",\n    \"facility\": \"N229 - EXPER. AEROTHERMODYNAMIC FAC.: ELECTRIC ARC SHOCK TUBE FACILITY (PAPAC)\",\n    \"facility_url\": null,\n    \"occupied\": \"1961-01-01T00:00:00Z\",\n    \"status\": \"Inactive\",\n    \"url_link\": \"http://thermo-physics.arc.nasa.gov\",\n    \"record_date\": \"1996-03-01T00:00:00Z\",\n    \"last_update\": \"2014-06-13T00:00:00Z\",\n    \"contact\": \"Rocci Caringello\",\n    \"phone\": \"650 603-9506\",\n    \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n            -100.052585,\n            50.41412\n        ]\n    },\n    \"city\": \"Moffett Field\",\n    \"state\": \"CA\",\n    \"country\": \"US\",\n    \"zipcode\": \"94035\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/facilities/2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								"2",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "POST new facility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "003d2711-b46c-4fc6-a72b-c27c7ef29568",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{admin-password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{admin-username}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"center\": \"Black Mesa\",\n    \"center_search_status\": \"Public\",\n    \"facility\": \"AERODYNAMICS AND METAPHYICS TEST LAB A1\",\n    \"facility_url\": null,\n    \"occupied\": \"1961-01-01T00:00:00Z\",\n    \"status\": \"Active\",\n    \"url_link\": \"http://thermo-physics.arc.nasa.gov\",\n    \"record_date\": \"1996-03-01T00:00:00Z\",\n    \"last_update\": \"2014-06-13T00:00:00Z\",\n    \"contact\": \"Rocci Caringello\",\n    \"phone\": \"650 603-9506\",\n    \"location\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n            -100.052585,\n            50.41412\n        ]\n    },\n    \"city\": \"Moffett Field\",\n    \"state\": \"CA\",\n    \"country\": \"US\",\n    \"zipcode\": \"94035\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/facilities/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List facilities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0b46eb09-5a5f-4da3-a519-c4a451547d11",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/facilities/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Detail facilities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{base_url}}/facilities/2/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"facilities",
+								"2",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "{{admin-password}}",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "{{admin-username}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "41b24879-616f-4095-a18d-d5a7aa2d7a34",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7875125-e900-45ad-acf0-b3c98316d0fb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
