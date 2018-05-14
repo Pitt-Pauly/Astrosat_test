@@ -128,3 +128,6 @@ REST_FRAMEWORK = {
        'rest_framework.permissions.AllowAny',
     )
 }
+
+# allows the management command createDummySuperuser to create a new admin account for testing.
+CREATE_DUMMY_ADMIN=True
