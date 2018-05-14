@@ -19,7 +19,7 @@ class Command(BaseCommand):
         try:
             admin = User.objects.get(username=username)
             self.stdout.write('Dummy Admin account exists already!')
-        except ObjectDoesNotExist:
+        except User.DoesNotExist:
             admin = User.objects.create_superuser(
                 username=username,
                 email=email,
