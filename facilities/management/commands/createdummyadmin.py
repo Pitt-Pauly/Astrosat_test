@@ -13,23 +13,20 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            dest='username',
+            '--username',
             action='store',
-            nargs='?',
             default='admin',
             help='username of dummy admin, if none provided will attempt to read env variable DUMMY_USERNAME'
         )
         parser.add_argument(
-            dest='email',
+            '--email',
             action='store',
-            nargs='?',
             default='admin@mysite.com',
             help='email of dummy admin, if none provided will attempt to read env variable DUMMY_EMAIL'
         )
         parser.add_argument(
-            dest='password',
+            '--password',
             action='store',
-            nargs='?',
             default='supersafe111',
             help='password of dummy admin, if none provided will attempt to read env variable DUMMY_PASSWORD'
         )
