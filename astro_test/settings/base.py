@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -129,5 +129,7 @@ REST_FRAMEWORK = {
     )
 }
 
+# Facilities app settings
 # allows the management command createDummySuperuser to create a new admin account for testing.
-CREATE_DUMMY_ADMIN=True
+CREATE_DUMMY_ADMIN = True
+INIT_DB_DEFAULT_JSON = os.path.abspath(BASE_DIR + '/facilities/fixtures/9g7e-7hzz.json')

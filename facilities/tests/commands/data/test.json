@@ -1,0 +1,54 @@
+[
+    {
+        ":@computed_region_cbhk_fwbd": "32",
+        ":@computed_region_nnqa_25f4": "1643",
+        "center": "AstroSat HQ",
+        "center_search_status": "Public",
+        "city": "Musselburgh",
+        "contact": "Robert Bruce",
+        "country": "UK",
+        "facility": "Test Stand A-1 #1337",
+        "last_update": "2018-04-05T00:00:00.000",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                -89.604486,
+                30.385948
+            ]
+        },
+        "location_zip": "39529-6000",
+        "occupied": "1964-01-01T00:00:00.000",
+        "phone": "228-688-1646",
+        "record_date": "1996-03-01T00:00:00.000",
+        "state": "MS",
+        "status": "Active",
+        "url_link": "http://rockettest.nasa.gov",
+        "zipcode": "39529-6000"
+    },
+    {
+        ":@computed_region_cbhk_fwbd": "32",
+        ":@computed_region_nnqa_25f4": "1643",
+        "center": "Astro Space Center",
+        "center_search_status": "Public",
+        "city": "Musselburgh",
+        "contact": "Robert Bruce",
+        "country": "US",
+        "facility": "Test Stand A-2 #1338",
+        "last_update": "2018-04-05T00:00:00.000",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                -85.604486,
+                30.385948
+            ]
+        },
+        "location_zip": "39529-6000",
+        "occupied": "1964-01-01T00:00:00.000",
+        "phone": "228-688-1646",
+        "record_date": "1996-03-01T00:00:00.000",
+        "state": "MS",
+        "status": "Active",
+        "url_link": "http://rockettest.nasa.gov",
+        "zipcode": "39529-6000"
+    }
+]
