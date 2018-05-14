@@ -26,6 +26,5 @@ urlpatterns = [
     url(r'^schema/$', get_schema_view(title="Astrosat NASA Facilities API", permission_classes=[ AllowAny ])),
 
     url(r'^facilities/$', views.FacilitiesList.as_view()),
-    url(r'^facilities/batch/$', views.FacilitiesBatchCreate.as_view()),
     url(r'^facilities/(?P<pk>[0-9]+)/$', views.FacilitiesDetail.as_view()),
 ]
